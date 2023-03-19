@@ -1,7 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {View, Text} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {View, Text,TouchableOpacity} from 'react-native';
 
 export default class BarButtonComponent extends React.Component {
   static propstype = {

@@ -2,7 +2,11 @@ export default {
 
     companyId: "2",
     baseCountry: 'KW',
-    baseUrl: "https://2d.com.kw/",
+    baseUrl: "https://www.desiredsoft.com/porwal-directories/",
+    sendOtp: "api/send-otp",
+
+
+
     baseUrlCommon: "https://api.2d.com.kw/api/TwoDml/",
     urlForSp: 'https://api.2d.com.kw/api/TwoDml/getData_JSON',
     baseUrlHomeimage: "https://admin.2d.com.kw/Upload/AppsCategory/",

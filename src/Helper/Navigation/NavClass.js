@@ -2,26 +2,21 @@ import * as React from 'react';
 import { Button, Text, View, Image, TouchableOpacity } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator, HeaderBackground } from '@react-navigation/stack';
-import HomeScreen from '../../screens/Home'
-import LanguageSelection from '../../screens/LanguageSelection'
-import TabBarControl, {buttonStyles,BackImage,BackButton} from './TabBarController'
-import ScrollableModal from '../../screens/FilterScreens/Filter';
-import Checkout from '../../screens/Checkoutpage/Checkout';
+import LanguageSelection from '../../screen/AppScreens/LanguageSelection'
+// import ScrollableModal from '../../screens/FilterScreens/Filter';
 import res from '../index';
-import ProjectDetail from '../../screens/ProjectPage/ProjectDetail';
-import WebViewComponent from '../../screens/Wishlist/WebViewComponent';
-import Login from '../../screens/Login/Login';
-import SignUp from '../../screens/Login/SignUp';
-import SearchList from '../../screens/FilterScreens/SearchList';
-import ProductDetail from '../../screens/Products/ProductDetail';
-import AppLoader, { loaderRef } from '../ApiHelper/AppLoader';
-import SplashScreen from '../../screens/SplashScreen'
-import AddressList from '../../screens/Address/AddressList';
-import AddressAdd from '../../screens/Address/AddressAdd';
-import AddressView from '../../screens/Address/AddressView';
-import FullImage from '../../screens/Products/FullImage'
-import LudoGame from '../../games/LudoGame'
-import ForgotPassword from '../../screens/Login/ForgotPassword'
+import SplashScreen from '../../screen/AppScreens/SplashScreen';
+import LoginScreen from '../../screen/AppScreens/LoginScreen';
+import LudoGamePage from '../../screen/Game/LudoGamePage'
+// import OTPScreen from '../../screens/OTPScreen';
+// import AddUserMain from '../../screens/AddUserMain';
+// import Userlist from '../../screens/Userlist';
+// import UserDetails from '../../screens/UserDetails'
+// import AddfamilyUser from '../../screens/AddfamilyUser';
+// import Dashboard from '../../screens/Dashboard';
+// import OTPField from '../../screens/Component/OTPField'
+// import Instruction from '../../screens/Instruction';
+
 const Stack = createStackNavigator();
 
 export default function NavClass() {
@@ -33,100 +28,23 @@ export default function NavClass() {
       headerBackImage: () => <BackImage />,
       headerBackTitleVisible: false,
       gesturesEnabled: false,
+      headerStyle: {backgroundColor: res.color.liteblue}
     }} >
-      
       <Stack.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown: false}} />
       <Stack.Screen name="LanguageSelection" component={LanguageSelection} options={{ headerShown: false }} />
-      <Stack.Screen name="LudoGame" component={LudoGame} options={{ headerShown: false, stackPresentation: 'modal', gestureEnabled: false }}/>
-      <Stack.Screen name="Home" component={TabBarControl} options={{ headerShown: false, stackPresentation: 'modal', gestureEnabled: false }}/>
+      <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="LudoGamePage" component={LudoGamePage} options={{ headerShown: false }} />
       
-      <Stack.Screen name="Checkout" component={Checkout} 
-        options={{
-          title: res.strings.Checkout ,
-          headerShown: true,
-          headerBackImage: () => <BackImage isWhite = {false} />,
-          headerBackTitleVisible: false,
-          headerRight: () => (
-            <TouchableOpacity
-              style={buttonStyles.saveButton}
-              onPress={() => navigation.navigate('AddressAdd')}>
-              <Text style={{color: res.color.whilteColor, margin: 8, fontFamily:res.font.ragularFont}}>
-                {res.strings.proceed}
-              </Text>
-            </TouchableOpacity>
-          ),
-        }}/>
-      <Stack.Screen name="ScrollableModal" component={ScrollableModal} options={{ headerShown: false, stackPresentation: 'modal' }}/>
-      <Stack.Screen name="ProjectDetail" component={ProjectDetail} options={{ headerShown: false, stackPresentation: 'modal', title: res.strings.projectDetail }}/>
-      <Stack.Screen name="WebViewComponent" component={WebViewComponent} options={{ headerShown: true, stackPresentation: 'modal' }}/>
-      <Stack.Screen name="Login" component={Login} options={{ headerShown: false}}  />
-      <Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{ headerShown: false}}  />
-      <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: true, title: res.strings.register, headerStyle: {
-      backgroundColor: 'black'
-    },
-    headerTintColor: 'white',
-    headerBackImage: () => <BackImage isWhite = {true}/>,
-    headerBackTitleVisible: false,
-     }}  />
-      <Stack.Screen name="SearchList" component={SearchList} options={{ headerShown: true, title: res.strings.searchProduct, headerStyle: {
-      backgroundColor: 'black'
-    },
-   
-    headerTintColor: 'white',
-    headerBackImage: () => <BackImage isWhite = {true}/>,
-    headerBackTitleVisible: false,
-   
-     }}  />
-     <Stack.Screen
-        name="AddressList"
-        component={AddressList}
-        options={{
-          headerShown: true,
-          title: res.strings.AllAddresses,
-          headerRight: () => (
-            <TouchableOpacity
-              style={buttonStyles.saveButton}
-              onPress={() => navigation.navigate('AddressAdd')}>
-              <Text style={{color: res.color.whilteColor, margin: 8,fontFamily:res.font.ragularFont}}>
-                {res.strings.Save}
-              </Text>
-            </TouchableOpacity>
-          ),
-        }}
-      />
-       <Stack.Screen
-        name="AddressAdd"
-        component={AddressAdd}
-        options={{
-          title: res.strings.AddressAdd,
-          headerShown: true,
-          headerRight: () => (
-            <TouchableOpacity
-              style={buttonStyles.saveButton}
-              onPress={() => navigation.navigate('AddressAdd')}>
-              <Text style={{color: res.color.whilteColor, margin: 8,fontFamily:res.font.ragularFont}}>
-                {res.strings.Save}
-              </Text>
-            </TouchableOpacity>
-          ),
-        }}
-      />
-
-      <Stack.Screen
-        name="AddressView"
-        component={AddressView}
-        options={{
-          title: res.strings.myAddresses,
-          headerShown: true,
-          headerRight: () => (
-            <TouchableOpacity style={{marginRight:20}} onPress={() => navigation.navigate('AddressAdd')}>
-            <Text style={{fontFamily:res.font.ragularFont,color:res.color.blueColor}}>{res.strings.Edit}</Text>
-          </TouchableOpacity>
-          ),
-        }}
-      />
-     <Stack.Screen name="ProductDetail" component={ProductDetail} options={{ headerShown: false}}  />
-     <Stack.Screen name="FullImage" component={FullImage} options={{ headerShown: false}}  />
+      {/* <Stack.Screen name="OTPScreen" component={OTPScreen} options={{ headerShown: true, }} />
+      <Stack.Screen name="OTPField" component={OTPField} options={{ headerShown: true, }} />
+      <Stack.Screen name="AddfamilyUser" component={AddfamilyUser} options={{ headerShown: true}} />
+      <Stack.Screen name="AddUserMain" component={AddUserMain} options={{ headerShown: true}} />
+      <Stack.Screen name="Userlist" component={Userlist} options={{ headerShown: true, }} />
+      <Stack.Screen name="UserDetails" component={UserDetails} options={{ headerShown: true, }} />
+      <Stack.Screen name="Dashboard" component={Dashboard} options={{ headerShown: true, headerBackImage: () => null, }} />
+      
+      <Stack.Screen name="Instruction" component={Instruction} options={{ headerShown: false, stackPresentation: 'modal', gestureEnabled: false }}/> */}
+      
     </Stack.Navigator>
 
     
@@ -134,3 +52,15 @@ export default function NavClass() {
   );
 }
 
+
+export const BackImage = ({isWhite}) => (
+
+  <Image style={{margin:10}} source={ isWhite ? res.ImageAssets.backButtonWhite : res.ImageAssets.backButton} />
+);
+
+export const FilterButton = ({onpress}) => (
+  <TouchableOpacity onPress = {()=>{onpress}}>
+      {/* <Image style={{margin:10}} source={ isWhite ? res.ImageAssets.backButtonWhite : res.ImageAssets.backButton} /> */}
+      <Text>Filter</Text>
+  </TouchableOpacity>
+);

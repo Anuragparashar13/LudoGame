@@ -3,13 +3,8 @@
 import * as React from 'react';
 import { Button, Text, View, Image, StatusBar,Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ImageAssets from './src/Helper/ImageAssets';
-import AppLoader, { loaderRef } from './src/Helper/ApiHelper/AppLoader';
 import NavClass from './src/Helper/Navigation/NavClass'
-import TabBarControl from './src/Helper/Navigation/TabBarController'
-import Modal from 'react-native-modal';
 import SplashScreen from 'react-native-splash-screen';
 
 
@@ -36,7 +31,7 @@ export default function App() {
             }
           />
           <View >
-          {Platform.OS==='ios' ? null : <AppLoader ref={loaderRef} />}
+          
           
           </View>
        

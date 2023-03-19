@@ -10,8 +10,8 @@ import {
   window,
 } from 'react-native';
 import Modal from 'react-native-modal';
-import AppLoader, { showLoader, hideLoader } from './AppLoader'
 import Toast from 'react-native-simple-toast';
+import { globalVariables } from '../../Helper/Constant';
 
 // import Loader from "./Component/ActivityIndicator";
 // import Spinner from "react-native-spinkit";
@@ -61,7 +61,7 @@ export default class ApiHelper extends Component {
     // this.showLoader()
     // this.setState({index: 1})
 
-     showLoader()
+    //  showLoader()
     fetch(url, {
       method: 'POST',
       headers: {
@@ -73,7 +73,7 @@ export default class ApiHelper extends Component {
       .then((response) => response.json())
 
       .then((responseJson) => {
-        hideLoader()
+        // hideLoader()
        
         // if (responseJson.status == false) {
         //   //  Alert.alert(responseJson.msg);
@@ -90,6 +90,7 @@ export default class ApiHelper extends Component {
           }
           else
           {
+            console.log('================-----------response',responseJson);
           Toast.show(responseJson.Message);
           }
         }
@@ -102,73 +103,102 @@ export default class ApiHelper extends Component {
         // hideLoader()
         // this.setState({ isVisible: false });
         // alert(error);
+        console.log('================-----------error',error);
         Toast.show(error.message);
         // callback(null, error);
         console.error(error);
       });
   };
 
-  //  // Service Call main function
-  //  serviceCallGet = async (param, url, callback) => {
-  //   var formData = new FormData();
-  //   param = {
-  //     WebCountryCode: 'KW',
-  //     UserID: 0,
-  //     Corpcentreby: '2',
-  //     CultureId: globalVariables.CultureId,
-  //   };
 
-  //   JSON.stringify(param);
+  serviceCallget = async (param, url, callback) => {
 
-  //   for (var k in param) {
-  //     formData.append(k, param[k]);
-  //   }
-  //   // alert(formData);
+    console.log('================',`Bearer ${globalVariables.token}`);
+ 
+    fetch(url, {
+      method: 'Get',
+      headers: {
+        'Content-Type': 'application/json',
+        accept: ['application/json', 'text/html'],
+        'Authorization': `Bearer ${globalVariables.token}`
+      },
+      // body: JSON.stringify(param),
+    })
+    .then((response) => {
+      
+      // In this case, we check the content-type of the response
+      if (response.headers.get('content-type').match(/application\/json/)) {
+        return response.json();
+      }
+      
+      return response;
+      // You can also try "return response.text();"
+     })
+      .then((responseJson) => {
+       
+        callback(responseJson, null);
+      })
+      .catch((error) => {
+      
+        callback(null, error);
+        console.error(error);
+      });
+  }
 
-  //   fetch(
-  //     'http://template2.malakstar.com/api/TwoDml/Get_NewCollectionAllProducts',
-  //     {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(param),
-  //     },
-  //   )
-  //     .then((response) => response.json())
+   // Service Call main function
+   serviceCallMultiPart = async (param, url, imageURL, callback) => {
+    var formData = new FormData();
+   
+    // for (var k in param) {
+    //   formData.append(k, param[k]);
+    // }
+    // formData.append('image' ,imageURL)
+    formData.append('image', {uri: imageURL,name: 'photo.png',filename :'imageName.png',type: 'image/png'});
 
-  //     .then((responseJson) => {
-  //       // alert(responseJson);
-  //       //   this.setState({ isVisible: false });
-  //       if (responseJson.status == false) {
-  //         //  Alert.alert(responseJson.msg);
-  //         // callback(null, responseJson.msg);
-  //         callback(null, 'Anurag callback1');
-  //       } else {
-  //         // console.log(responseJson.result.userId);
-  //         // callback(responseJson.result, null);
-  //         const userStr = JSON.stringify(responseJson);
-  //         // alert(userStr)
+    console.log('-----------------------',formData);
+    fetch(
+      url,
+      {
+        method: 'POST',
+        headers:[{'Content-Type':'multipart/form-data',  'Authorization': `Bearer ${globalVariables.token}`}],
+        body:  formData,
+      },
+    )
+      .then((response) => response.json())
 
-  //         console.log(JSON.parse(userStr));
-  //         alert(JSON.parse(userStr));
-  //         callback(responseJson, null);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       // this.setState({ isVisible: false });
-  //       // alert(error);
-  //       callback(null, error);
-  //       console.error(error);
-  //     });
-  // };
+      .then((responseJson) => {
+        // alert(responseJson);
+        //   this.setState({ isVisible: false });
+        if (responseJson.status == false) {
+          //  Alert.alert(responseJson.msg);
+          // callback(null, responseJson.msg);
+          callback(null, 'Anurag callback1');
+        } else {
+          // console.log(responseJson.result.userId);
+          // callback(responseJson.result, null);
+          const userStr = JSON.stringify(responseJson);
+          // alert(userStr)
+
+          console.log(JSON.parse(userStr));
+          alert(JSON.parse(userStr));
+          callback(responseJson, null);
+        }
+      })
+      .catch((error) => {
+        // this.setState({ isVisible: false });
+        // alert(error);
+        console.log('================',error);
+        callback(null, error);
+        console.error(error);
+      });
+  };
 
   render() {
    
     return (
      <View style={{backgroundColor:'red'}}>
 
-      <AppLoader ref={loaderRef} />
+      {/* <AppLoader ref={loaderRef} /> */}
       
      </View>   
     );

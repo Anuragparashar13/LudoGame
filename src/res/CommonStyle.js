@@ -9,8 +9,6 @@ const styles = StyleSheet.create(
 )
 
 const styles = StyleSheet.create({
-    ragularFont: {
-      fontFamily: res.font.ragularFont
-    },
+
   
   });

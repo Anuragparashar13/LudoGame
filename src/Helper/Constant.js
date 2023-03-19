@@ -8,12 +8,7 @@ export const asyncKeys = {
 
 export class globalVariables {
   static keyAppLanguageGlobal = 'en';
-  static userId = 0;
-  static UniqueId = '';
-  static BuyNow = '';
-  static CultureId = 1;
-  static goToOnline = -1;
-  static isCheckout = false;
+  static token = '';
 }
 
 readData = async () => {
